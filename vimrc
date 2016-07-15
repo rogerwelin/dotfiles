@@ -80,6 +80,12 @@ end
 let mapleader = ","
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
+"" -- filetype mappings
+let maplocalleader = "-"
+if has("autocmd")
+  autocmd FileType javascript,groovy,go nnoremap <buffer> <localleader>c I//<esc>
+  autocmd FileType ruby,python nnoremap <buffer> <localleader>c I#<esc>
+end
 
 "" -- General settings -- 
 highlight Comment ctermfg=DarkGreen term=italic
