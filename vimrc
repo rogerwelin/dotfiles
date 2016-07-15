@@ -85,6 +85,7 @@ let maplocalleader = "-"
 if has("autocmd")
   autocmd FileType javascript,groovy,go nnoremap <buffer> <localleader>c I//<esc>
   autocmd FileType ruby,python nnoremap <buffer> <localleader>c I#<esc>
+  autocmd FileType clojure nnoremap <buffer> <localleader>c I;;<esc>
 end
 
 "" -- General settings -- 
