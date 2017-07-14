@@ -99,5 +99,7 @@ set number
 set ruler
 set showcmd
 set encoding=utf8
+set autoindent
 set expandtab
-set shiftwidth=2 softtabstop=2
+set softtabstop=2
+set shiftwidth=2
