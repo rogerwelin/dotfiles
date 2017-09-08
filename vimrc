@@ -47,6 +47,9 @@ let g:airline#extensions#tabline#enabled = 1
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
+" -- go/vim
+let g:go_fmt_command = "goimports"
+
 " -- scrooloose/syntastic settings --
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
