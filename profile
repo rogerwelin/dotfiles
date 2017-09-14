@@ -10,6 +10,10 @@ alias perl_o='perl -wl' 		# output generation
 alias perl_io='perl -wnl' 		# I/O processing, with pringting
 alias perl_iop='perl -wpl' 		# I/O Processing, with printing alias perl_f=' perl -wnla ' # Field Processing
 alias perl_fp='perl -wpla' 		# Field Processing, with printing
+alias path="readlink -f"                # get full path of file/dir
+alias ga="git add -A"
+alias gc="git commit"
+alias gp="git push origin"
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export PATH=/usr/local/bin:$PATH
