@@ -1,0 +1,8 @@
+tags
+*.swp
+*.iml
+.gradle
+.idea
+node_modules/
+target/
+build/
