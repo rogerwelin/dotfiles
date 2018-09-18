@@ -25,7 +25,7 @@ logger () {
 
 function installing() {
  logger "Installing $1" && \
-   echo $1
+   sudo dnf install -y $1
 }
 
 logger "Adding golang, docker, spotify, vscode repos"
