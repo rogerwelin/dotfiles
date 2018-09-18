@@ -15,11 +15,6 @@ alias ga="git add -A"
 alias gc="git commit"
 alias gp="git push origin"
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-export PATH=/usr/local/bin:$PATH
-#jruby
-export PATH=$PATH:/Users/rogerwelin/programming/jruby/jruby-9.1.1.0/bin
-
 _complete_ssh_hosts ()
 {
         COMPREPLY=()
@@ -48,4 +43,3 @@ export PATH=$PATH:$GOPATH/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
