@@ -40,7 +40,12 @@ _complete_ssh_hosts ()
 complete -F _complete_ssh_hosts ssh
 
 GIT_PROMPT_ONLY_IN_REPO=1
-source /Users/rogerwelin/git/bash-git-prompt/gitprompt.sh
-export GOROOT=/usr/local/opt/go/libexec/
-export GOPATH=$HOME/golang
+source $HOME/git/bash-git-prompt/gitprompt.sh
+
+export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
