@@ -17,13 +17,14 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'Raimondi/delimitMate'
+Plugin 'SirVer/ultisnips'
+" Language Specific
 Plugin 'fatih/vim-go'
 Plugin 'pangloss/vim-javascript'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'guns/vim-clojure-highlight'
-Plugin 'guns/vim-clojure-static'
-Plugin 'tpope/vim-fireplace'
 Plugin 'elzr/vim-json'
+Plugin 'fatih/vim-hclfmt'
+Plugin 'rust-lang/rust.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -32,9 +33,11 @@ syntax enable
 "set mouse=a
 
 " -- Plugin-Specific Settings --
-" -- altercation/vim-colors-solarized settings --
 set background=dark
 colorscheme elflord
+
+" -- General: set leader to ,
+let mapleader = ","
 
 " -- bling/vim-airline settings --
 " Always show statusbar
@@ -49,6 +52,32 @@ let g:nerdtree_tabs_open_on_console_startup = 1
 
 " -- go/vim
 let g:go_fmt_command = "goimports"
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+
+" run go run from vim with ,r
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+" go to source code with ,d
+autocmd FileType go nmap <leader>d  <Plug>(go-def)
+" close source with ,q
+autocmd FileType go nmap <leader>q  <Plug>(go-def-pop)
+
+" -- SirVer/ultisnips go snippets
+" errp<TAB>   -> err block panic
+" errn<TAB>   -> err return block
+" ife<TAB>    -> if err condition
+" fn<TAB>     -> fmt.Println()
+" ff<TAB>     -> fmt.Printf()
+" ap<TAB>     -> append
+" if<TAB>     -> if block
+" else<TAB>   -> else block
+" forr<TAB>   -> for range block
+" select<TAB> -> select block
+" st<TAB>     -> struct block
+" json<TAB>   -> `json:""`
+" tt<TAB>     -> test table
+
 
 " -- scrooloose/syntastic settings --
 let g:syntastic_error_symbol = '✘'
@@ -80,7 +109,6 @@ if has("autocmd")
 end
 
 "" -- flexible editing of vimrc with ,v
-let mapleader = ","
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
 "" -- filetype mappings
@@ -88,7 +116,6 @@ let maplocalleader = "-"
 if has("autocmd")
   autocmd FileType javascript,groovy,go nnoremap <buffer> <localleader>c I//<esc>
   autocmd FileType ruby,python nnoremap <buffer> <localleader>c I#<esc>
-  autocmd FileType clojure nnoremap <buffer> <localleader>c I;;<esc>
 end
 
 "" -- General settings -- 
