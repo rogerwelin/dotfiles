@@ -78,6 +78,8 @@ autocmd FileType go nmap <leader>q  <Plug>(go-def-pop)
 " json<TAB>   -> `json:""`
 " tt<TAB>     -> test table
 
+" --rust
+let g:rustfmt_autosave = 1
 
 " -- scrooloose/syntastic settings --
 let g:syntastic_error_symbol = '✘'
