@@ -40,7 +40,7 @@ PACKAGES="golang.x86_64 code.x86_64 spotify-client.x86_64 docker-ce.x86_64
           htop.x86_64 mlocate.x86_64 neovim.x86_64 ctags.x86_64 wireshark.x86_64
           unzip.x86_64 strace.x86_64 ruby.x86_64 rubygem-bundler.noarch python2-pip.noarch
           conky.x86_64 git.x86_64 neovim.x86_64 atom.x86_64 jq.x86_64 java-1.8.0-openjdk.x86_64
-          screenfetch.noarch gnome-tweaks.noarch"
+          screenfetch.noarch gnome-tweaks.noarch git.x86_64"
 
 
 logger "Installing latest & greatest..."
@@ -62,7 +62,9 @@ logger "Installing bash git prompt" && \
   sudo unzip /tmp/terraform.zip -d /usr/local/sbin/terraform && chmod +x /usr/local/sbin/terraform && \
   logger "Getting packer" && \
   wget "https://releases.hashicorp.com/packer/1.3.1/packer_1.3.1_linux_amd64.zip" -O /tmp/packer.zip && \
-  sudo unzip /tmp/packer.zip -d /usr/local/sbin/ && chmod +x /usr/local/sbin/packer
+  sudo unzip /tmp/packer.zip -d /usr/local/sbin/ && chmod +x /usr/local/sbin/packer && \
+  logger "Getting rustup" && \
+  curl https://sh.rustup.rs -sSf | sh
 
 
 echo '
