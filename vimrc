@@ -8,6 +8,7 @@ Plugin 'gmarik/Vundle.vim'
 " -- Making vim look good --
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tomasr/molokai'
 " Text editor stuff
 Plugin 'scrooloose/nerdtree'
@@ -18,6 +19,7 @@ Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
+Plugin 'tpope/vim-fugitive'
 " Language Specific
 Plugin 'fatih/vim-go'
 Plugin 'pangloss/vim-javascript'
@@ -45,6 +47,7 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline_detect_paste=1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='base16_atelierforest'
 
 " -- nerdtree
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
@@ -84,6 +87,7 @@ let g:rustfmt_autosave = 1
 " -- scrooloose/syntastic settings --
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
+let g:syntastic_check_on_wq = 0
 augroup mySyntastic
   au!
   au FileType tex let b:syntastic_mode = "passive"
