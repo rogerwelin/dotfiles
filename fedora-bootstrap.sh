@@ -36,11 +36,27 @@ sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.re
   sudo wget "https://mirror.go-repo.io/fedora/go-repo.repo" -O /etc/yum.repos.d/go-repo.repo
 
 
-PACKAGES="golang.x86_64 code.x86_64 spotify-client.x86_64 docker-ce.x86_64
-          htop.x86_64 mlocate.x86_64 neovim.x86_64 ctags.x86_64 wireshark.x86_64
-          unzip.x86_64 strace.x86_64 ruby.x86_64 rubygem-bundler.noarch python2-pip.noarch
-          conky.x86_64 git.x86_64 neovim.x86_64 atom.x86_64 jq.x86_64 java-1.8.0-openjdk.x86_64
-          screenfetch.noarch gnome-tweaks.noarch git.x86_64"
+PACKAGES="golang.x86_64
+          code.x86_64 
+          spotify-client.x86_64
+          docker-ce.x86_64
+          htop.x86_64
+          mlocate.x86_64
+          neovim.x86_64
+          ctags.x86_64
+          wireshark.x86_64
+          unzip.x86_64
+          strace.x86_64
+          ruby.x86_64
+          rubygem-bundler.noarch
+          python2-pip.noarch
+          conky.x86_64
+          atom.x86_64
+          jq.x86_64
+          java-1.8.0-openjdk.x86_64
+          screenfetch.noarch
+          gnome-tweaks.noarch
+          git.x86_64"
 
 
 logger "Installing latest & greatest..."
