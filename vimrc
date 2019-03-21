@@ -27,6 +27,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'elzr/vim-json'
 Plugin 'fatih/vim-hclfmt'
 Plugin 'rust-lang/rust.vim'
+Plugin 'tomlion/vim-solidity'
 call vundle#end()
 
 filetype plugin indent on
