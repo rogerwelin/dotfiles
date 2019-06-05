@@ -49,13 +49,22 @@ PACKAGES="golang.x86_64
           strace.x86_64
           ruby.x86_64
           rubygem-bundler.noarch
-          python2-pip.noarch
           conky.x86_64
+          python3.x86_64
+          python3-pip.noarch
           atom.x86_64
           jq.x86_64
-          java-1.8.0-openjdk.x86_64
+          tree.x86_64
+          tmux.x86_64
+          rpmdevtools.noarch
+          java-11-openjdk.x86_64
+          nghttp2.x86_64
+          ruby.x86_64
           screenfetch.noarch
           gnome-tweaks.noarch
+          tcpdump.x86_64
+          figlet.x86_64
+          cmatrix.x86_64
           git.x86_64"
 
 
