@@ -27,7 +27,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'elzr/vim-json'
 Plugin 'fatih/vim-hclfmt'
 Plugin 'rust-lang/rust.vim'
-Plugin 'tomlion/vim-solidity'
+Plugin 'rhysd/vim-crystal'
 call vundle#end()
 
 filetype plugin indent on
@@ -84,6 +84,9 @@ autocmd FileType go nmap <leader>q  <Plug>(go-def-pop)
 
 " --rust
 let g:rustfmt_autosave = 1
+
+" -- crystal
+let g:crystal_auto_format = 1
 
 " -- scrooloose/syntastic settings --
 let g:syntastic_error_symbol = '✘'
