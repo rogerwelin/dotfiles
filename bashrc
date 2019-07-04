@@ -14,6 +14,8 @@ alias path="readlink -f"                # get full path of file/dir
 alias ga="git add -A"
 alias gc="git commit"
 alias gp="git push origin"
+alias vim="nvim"
+alias ipp="ip -color -brief address show"
 
 _complete_ssh_hosts ()
 {
