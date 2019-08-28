@@ -16,6 +16,8 @@ alias gc="git commit"
 alias gp="git push origin"
 alias vim="nvim"
 alias ipp="ip -color -brief address show"
+# ex. diffa file1.txt file2.txt show lines in file1 that are not present in file2
+alias diffa"awk 'NR==FNR{a[$0]=1;next}!a[$0]'"
 
 _complete_ssh_hosts ()
 {
