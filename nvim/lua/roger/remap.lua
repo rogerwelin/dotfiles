@@ -14,4 +14,8 @@ vim.keymap.set("n", "<leader>t", vim.cmd.NvimTreeToggle)
 vim.keymap.set("n", "<leader>q", vim.cmd.NvimTreeClose)
 
 -- show trouble at cursoir
-vim.keymap.set("n", "<leader>ee", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+
+-- go.nvim: add tags & remove tags
+vim.keymap.set("n", "<leader>1", vim.cmd.GoAddTag)
+vim.keymap.set("n", "<leader>2", vim.cmd.GoRmTag)
