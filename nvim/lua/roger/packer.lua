@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
 
     use('hashivim/vim-terraform')
 
-    use('fatih/vim-go')
+    use 'ray-x/go.nvim'
 
 
 
