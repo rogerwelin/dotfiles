@@ -22,3 +22,5 @@ vim.keymap.set("n", "<leader>2", vim.cmd.GoRmTag)
 
 -- go.nvim: iferr code block
 vim.keymap.set("i", "iferr", vim.cmd.GoIfErr)
+
+-- go.nvim: install binaries with :GoInstallBinaries
