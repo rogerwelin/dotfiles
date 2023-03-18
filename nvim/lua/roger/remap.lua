@@ -19,3 +19,6 @@ vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 -- go.nvim: add tags & remove tags
 vim.keymap.set("n", "<leader>1", vim.cmd.GoAddTag)
 vim.keymap.set("n", "<leader>2", vim.cmd.GoRmTag)
+
+-- go.nvim: iferr code block
+vim.keymap.set("i", "iferr", vim.cmd.GoIfErr)
