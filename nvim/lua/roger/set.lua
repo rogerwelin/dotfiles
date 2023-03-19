@@ -15,3 +15,6 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.mouse = a
+
+-- filename in top right (useful for splitting windows)
+vim.opt.winbar="%=%m %f"
