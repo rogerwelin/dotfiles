@@ -9,9 +9,8 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
--- nvim-tree open & close
+-- nvim-tree open & close (toggles)
 vim.keymap.set("n", "<leader>t", vim.cmd.NvimTreeToggle)
-vim.keymap.set("n", "<leader>q", vim.cmd.NvimTreeClose)
 
 -- show trouble at cursoir
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
