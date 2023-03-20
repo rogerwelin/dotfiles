@@ -5,14 +5,18 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- half page move around
+-- move half screen down/up centered
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- search (next) centered
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- nvim-tree open & close (toggles)
 vim.keymap.set("n", "<leader>t", vim.cmd.NvimTreeToggle)
 
--- show trouble at cursoir
+-- show trouble at cursor
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 
 -- go.nvim: add tags & remove tags
