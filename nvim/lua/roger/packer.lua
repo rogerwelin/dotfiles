@@ -81,10 +81,9 @@ return require('packer').startup(function(use)
     }
 
     use('folke/lsp-colors.nvim')
-
     use('hashivim/vim-terraform')
-
     use 'ray-x/go.nvim'
+    use 'lukas-reineke/indent-blankline.nvim'
 
 
 
