@@ -6,3 +6,7 @@ brew install ripgrep fd jq htop iamlive ipcalc kind lolcat neovim shellcheck sql
 
 brew tap homebrew/cask-fonts
 brew install font-hack-nerd-font
+
+# zsh plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
