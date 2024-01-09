@@ -6,8 +6,8 @@ brew install ripgrep \
   fd \
   jq \
   htop \
-  iamlive \
   ipcalc \
+  iann0036/iamlive/iamlive \
   kind \
   lolcat \
   neovim \
@@ -18,6 +18,8 @@ brew install ripgrep \
   terraform \
   terraformer \
   tree \
+  kubernetes-cli \
+  socat \
   git \
   figlet \
   bat \
@@ -27,7 +29,7 @@ brew install ripgrep \
 
 echo 'export PATH="/opt/homebrew/opt/libpq/bin:$PATH"' >> ~/.zshrc
 
-bres install pspg
+brew install pspg
 
 brew tap homebrew/cask-fonts
 brew install font-hack-nerd-font
