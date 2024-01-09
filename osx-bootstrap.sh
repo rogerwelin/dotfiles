@@ -34,4 +34,7 @@ brew install font-hack-nerd-font
 
 # zsh plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# psql dba
+cd ~ && \
+  git clone https://github.com/NikolayS/postgres_dba.git

@@ -1,0 +1,8 @@
+\setenv PAGER pspg
+\pset border 2
+\pset linestyle unicode
+\set x '\setenv PAGER less'
+\set xx '\setenv PAGER \'pspg -bX --no-mouse\''
+\pset null 'Ø'
+\echo 🧐 🐘 postgres_dba 6.0 installed. Use ":dba" to see menu
+\set dba '\\i /Users/rogerwelin/postgres_dba/start.psql'
