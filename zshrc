@@ -3,7 +3,7 @@ export PATH=$PATH:/Users/rogerwelin/go/bin
 # oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions web-search)
 source $ZSH/oh-my-zsh.sh
 
 # handy tf aliases
@@ -26,3 +26,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# vim mode zsh
+bindkey -v
