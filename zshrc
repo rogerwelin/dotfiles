@@ -6,6 +6,8 @@ ZSH_THEME="robbyrussell"
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions web-search)
 source $ZSH/oh-my-zsh.sh
 
+export PSQL_PAGER='pspg -X -b -s 17'
+
 # handy tf aliases
 alias tfinit='terraform init -backend-config'
 alias tflock='terraform providers lock -platform=darwin_arm64 -platform=linux_amd64'
@@ -15,6 +17,10 @@ alias rg="rg --no-ignore-vcs"
 
 # psgq pager settings for psql
 export PSQL_PAGER='pspg -X -b -s 17'
+
+# make autocomplete
+zstyle ':completion:*:*:make:*' tag-order 'targets'
+autoload -U compinit && compinit
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
