@@ -1,5 +1,5 @@
 -- ==========================================================================
--- 1. GENERAL SETTINGS
+-- GENERAL SETTINGS
 -- ==========================================================================
 
 -- Disable netrw (strongly advised before plugins)
@@ -19,7 +19,7 @@ vim.opt.winbar="%=%m %f"
 
 -- Filetype-specific indentation
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "lua", "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  pattern = { "c", "lua", "typescript", "typescriptreact", "javascript", "javascriptreact" },
   callback = function()
     vim.opt_local.tabstop = 2
     vim.opt_local.softtabstop = 2
@@ -30,10 +30,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ==========================================================================
--- 2. KEYMAPS
+-- KEYMAPS (non-plugin)
 -- ==========================================================================
-
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Move block of code around, really nice
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -63,7 +61,7 @@ vim.keymap.set('n', '<leader>c', function()
 end, { desc = 'Copy line and comment original' })
 
 -- ==========================================================================
--- 3. CUSTOM COMMANDS
+-- 4. CUSTOM COMMANDS
 -- ==========================================================================
 
 --
@@ -78,7 +76,7 @@ vim.api.nvim_create_user_command("SplitLines", function()
 end, {})
 
 -- ==========================================================================
--- 4. BOOTSTRAP LAZY.NVIM
+-- 5. BOOTSTRAP LAZY.NVIM
 -- ==========================================================================
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -98,7 +96,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- ==========================================================================
--- 5. PLUGINS
+--  PLUGINS
 -- ==========================================================================
 
 require("lazy").setup({
@@ -112,9 +110,17 @@ require("lazy").setup({
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "go", "bash", "typescript", "ruby", "python" },
+        ensure_installed = {
+          "bash", "c", "cpp", "go", "html", "javascript", "lua", "perl",
+          "python", "query", "ruby", "rust", "sql", "tsx", "typescript",
+          "vim", "vimdoc", "yaml", "zig",
+        },
         sync_install = false,
-        highlight = { enable = true },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
         indent = { enable = true },
       })
     end
@@ -122,13 +128,23 @@ require("lazy").setup({
   },
   {
     'nvim-telescope/telescope.nvim', tag = '0.1.8',
-    dependencies = { 'nvim-lua/plenary.nvim' }
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+      vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+      vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
+      vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, { desc = 'Document Symbols' })
+      vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = 'Dynamic Workspace Symbols' })
+    end
   },
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' }
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup()
+    end
   },
-  -- Editing helpers
   { 'numToStr/Comment.nvim', opts = {} },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -141,12 +157,36 @@ require("lazy").setup({
     event = "InsertEnter",
     opts = {} -- this is equalent to setup({}) function
   },
-  {'theprimeagen/harpoon'},
-  -- Colorscheme
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {
+    'theprimeagen/harpoon',
+    config = function()
+      local mark = require("harpoon.mark")
+      local ui = require("harpoon.ui")
+
+      vim.keymap.set("n", "<leader>a", mark.add_file)
+      vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+
+      -- Navigate to next vs previous mark (can cycle)
+      vim.keymap.set("n", "<C-h>", function() ui.nav_next() end)
+      vim.keymap.set("n", "<C-t>", function() ui.nav_prev() end)
+    end
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme "catppuccin-macchiato"
+    end
+  },
   {'navarasu/onedark.nvim'},
-  {'hashivim/vim-terraform'},
-  -- Supermaven (AI completion)
+  {
+    'hashivim/vim-terraform',
+    config = function()
+      vim.g.terraform_fmt_on_save = 1
+      vim.g.terraform_align = 1
+    end
+  },
   {
     "supermaven-inc/supermaven-nvim",
     config = function()
@@ -172,6 +212,15 @@ require("lazy").setup({
     },
     config = function()
       require("go").setup()
+
+      local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function()
+          require('go.format').goimports()
+        end,
+        group = format_sync_grp,
+      })
     end,
     event = {"CmdlineEnter"},
     ft = {"go", 'gomod'},
@@ -219,10 +268,34 @@ require("lazy").setup({
     "lewis6991/gitsigns.nvim",
     event = "VeryLazy",
     config = function()
-      require("gitsigns").setup()
+      require("gitsigns").setup({
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
+          -- Navigation
+          map('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          map('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          -- Actions
+          map('n', '<leader>gb', gs.toggle_current_line_blame)
+          map('n', '<leader>gp', gs.preview_hunk)
+        end
+      })
     end
   },
-  -- LSP, Completion, Mason
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v4.x',
@@ -234,6 +307,7 @@ require("lazy").setup({
     lazy = false,
     config = true,
   },
+
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
@@ -311,152 +385,3 @@ require("lazy").setup({
     end
   },
 })
-
--- ==========================================================================
--- 6. AFTER-PLUGIN CONFIGURATION
--- ==========================================================================
-
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names or "all"
-  ensure_installed = { "javascript", "typescript", "tsx", "bash", "go", "c", "lua", "ruby", "perl", "rust", "zig", "sql", "yaml", "perl" },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  indent = {
-    enable = true,
-  },
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-
--- Telescope keymaps
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, { desc = 'Document Symbols' })
-vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = 'Dynamic Workspace Symbols' })
-
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
-}
-
-require("ibl").setup()
-
--- Harpoon keymaps
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
-
-vim.keymap.set("n", "<leader>a", mark.add_file)
-vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
-
--- Navigate to next vs previous mark (can cycle)
-vim.keymap.set("n", "<C-h>", function() ui.nav_next() end)
-vim.keymap.set("n", "<C-t>", function() ui.nav_prev() end)
---vim.keymap.set("n", "<C-n>", function() ui.nav_file(1) end)
---vim.keymap.set("n", "<C-s>", function() ui.nav_file(2) end)
-
--- Colorscheme
-vim.cmd.colorscheme "catppuccin-macchiato"
-
--- ------------------------------------------------------------------------
--- 7.7 Onedark (disabled)
--- ------------------------------------------------------------------------
---require('onedark').setup {
---    style = 'darker'
---}
---require('onedark').load()
-
--- Gitsigns keymaps
-require('gitsigns').setup{
-  on_attach = function(bufnr)
-    local gs = package.loaded.gitsigns
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
-    -- Navigation
-    map('n', ']c', function()
-      if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    map('n', '[c', function()
-      if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    -- Actions
-    map('n', '<leader>gb', gs.toggle_current_line_blame)
-    map('n', '<leader>gp', gs.preview_hunk)
-
-  end
-}
-
--- Go (format on save)
-local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-   require('go.format').goimports()
-  end,
-  group = format_sync_grp,
-})
-
---  Terraform
-vim.cmd([[let g:terraform_fmt_on_save=1]])
-vim.cmd([[let g:terraform_align=1]])
